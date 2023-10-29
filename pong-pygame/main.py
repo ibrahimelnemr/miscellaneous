@@ -17,12 +17,13 @@ def draw():
 def main():
     run = True
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-            break
+
 
     while run:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                break
         pygame.display.update()
     
     pygame.quit()
