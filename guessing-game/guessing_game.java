@@ -27,6 +27,7 @@ public class guessing_game {
             }
         }
 
+        sc.close();
     }
 
 }

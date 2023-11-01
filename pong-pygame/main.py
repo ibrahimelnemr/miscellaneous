@@ -18,9 +18,28 @@ def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     clock = pygame.time.Clock()
     run = True
-    p = player_bat(pos_x=10, pos_y=HEIGHT/2, width=10, height=150)
-    e = enemy_bat(pos_x=WIDTH-20, pos_y=HEIGHT/2, width=10, height=150)
-    b = ball(pos_x=WIDTH/2, pos_y=HEIGHT/2, width = 20)
+
+    p = player_bat (
+        pos_x=10, 
+        pos_y=HEIGHT/2, 
+        width=10, 
+        height=150,
+        vel=10
+        )
+    
+    e = enemy_bat (
+        pos_x=WIDTH-20, 
+        pos_y=HEIGHT/2, 
+        width=10, 
+        height=150,
+        vel=10
+        )
+    
+    b = ball(
+        pos_x=WIDTH/2, 
+        pos_y=HEIGHT/2, 
+        width = 20
+        )
 
     while run:
         for event in pygame.event.get():
