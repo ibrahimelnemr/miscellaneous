@@ -10,7 +10,7 @@ class bat():
         self.height = height
         self.vel = vel
     
-    def draw(self, screen: pygame.Surface):
+    def draw(self, screen):
         pygame.draw.rect(
             screen, 
             "white", 
