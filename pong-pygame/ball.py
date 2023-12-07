@@ -4,7 +4,7 @@ class ball():
     def __init__(self, pos_x: int, pos_y: int, width: int, vel: int):
         self._pos_x = pos_x
         self._pos_y = pos_y
-        self.width = width
+        self._width = width
         self.vel = vel
         self._dir_x = 1
         self._dir_y = 1
@@ -24,6 +24,10 @@ class ball():
     @property
     def pos_x(self):
         return self._pos_x
+    
+    @property
+    def width(self):
+        return self._width
 
     #pos x setter
     @pos_x.setter
