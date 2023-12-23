@@ -57,5 +57,3 @@ class logic:
         # handle collision with ball and enemy bat
         if ball_object.pos_x in range( enemy_object.pos_x - ball_object.width, enemy_object.pos_x - ball_object.width + enemy_object.width) and ball_object.pos_y in range(enemy_object.pos_y, enemy_object.pos_y + enemy_object.height): 
             ball_object.dir_x *= -1
-
-        
