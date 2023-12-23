@@ -46,11 +46,11 @@
                                                     <action selector="onFilter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bde-Ke-RWf"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oio-0c-znp" userLabel="imageToggle">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fym-ZV-GMV" userLabel="Image Toggle">
                                                 <rect key="frame" x="240" y="0.0" width="120" height="44"/>
                                                 <state key="normal" title="Show Filtered Image"/>
                                                 <connections>
-                                                    <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9Wu-ex-xbS"/>
+                                                    <action selector="onImageToggle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zte-hf-7Tg"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-2N-f93">
@@ -96,9 +96,8 @@
                     <connections>
                         <outlet property="bottomMenu" destination="JNF-wb-wwY" id="jTm-2q-PDu"/>
                         <outlet property="filterButton" destination="C6B-1F-j0K" id="6Kf-1q-zun"/>
-                        <outlet property="imageToggle" destination="Oio-0c-znp" id="Yob-De-za9"/>
+                        <outlet property="imageToggle" destination="Fym-ZV-GMV" id="F5H-KZ-sXr"/>
                         <outlet property="imageView" destination="aND-Em-4Dd" id="IcX-A6-lLW"/>
-                        <outlet property="onImageToggle" destination="Oio-0c-znp" id="DeH-rf-8nL"/>
                         <outlet property="secondaryMenu" destination="ePS-oG-ZHP" id="Be7-JW-Iwe"/>
                     </connections>
                 </viewController>

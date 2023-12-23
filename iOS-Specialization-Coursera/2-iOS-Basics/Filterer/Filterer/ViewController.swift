@@ -21,15 +21,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     @IBAction func onImageToggle(sender: UIButton) {
-        
         imageView.image = filteredImage
         
+        if imageToggle.selected {
+            let image = UIImage(named: "scenery")!
+            imageView.image = image
+            imageToggle.selected = false
+        } else {
+            imageView.image = filteredImage
+            imageToggle.selected = true
+        }
+        
+
         
     }
+
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageToggle.setTitle("Show Before Image", forState: .Selected)
         
         let image = UIImage(named: "scenery")!
         var rgbaImage = RGBAImage(image: image)!
