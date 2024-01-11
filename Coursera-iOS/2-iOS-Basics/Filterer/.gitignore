@@ -1,0 +1,22 @@
+# Xcode
+.DS_Store
+build/
+DerivedData/
+/*.hmap
+/*.ipa
+/*.xcuserstate
+/*.xcworkspace
+/xcuserdata/
+
+# Swift
+*.swiftpm
+*.xcplayground
+*.playground
+timeline.xctimeline
+*.xctest
+
+# CocoaPods
+Pods/
+*.podspec
+
+/Filterer/Filterer.xcodeproj/xcuserdata/
