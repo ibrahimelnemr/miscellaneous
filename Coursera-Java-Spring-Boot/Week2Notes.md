@@ -12,7 +12,7 @@
 
 ```
 
-`Application.java``
+`Application.java`
 ```java
 package com.bhawnagunwani.spring.ioc;
 import org.springframework.context.ApplicationContext;
@@ -23,4 +23,4 @@ public class Application {
         System.out.println(obj);
     }
 }
-```م
+```
