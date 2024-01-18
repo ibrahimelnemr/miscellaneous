@@ -26,9 +26,6 @@ player_score_pos = (WIDTH // 3, HEIGHT // 3)
 enemy_score_pos = (WIDTH - WIDTH // 3, HEIGHT // 3)
 message_pos = (WIDTH // 2, HEIGHT // 2)
 
-# show_welcome_screen = True
-# show_game_screen = False
-# show_end_screen = False
 
 def main():
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -60,35 +57,53 @@ def main():
         vel=BALL_VEL)
 
     while run:
+        keys = pygame.key.get_pressed()
         for event in pygame.event.get():
+            print(event)
+
             if event.type == pygame.QUIT:
                 run = False
                 break
 
-        logic.handle_movement(ball_object,enemy_object,player_object,WIDTH,HEIGHT)
+            if keys[pygame.K_q] :
+                print("QUITTING")
+                run = False
+                break
+
+            if event.type == pygame.KEYDOWN and show_welcome_screen:
+                show_game_screen = True
+                show_welcome_screen = False
+            
+            if event.type == pygame.KEYDOWN and show_end_screen:
+                show_game_screen = True
+                show_end_screen = False
+
+        logic.handle_movement(
+            ball_object,
+            enemy_object,
+            player_object,
+            WIDTH,
+            HEIGHT)
         
-        logic.handle_collisions(ball_object,enemy_object,player_object,WIDTH,HEIGHT, scores)
+        logic.handle_collisions(
+            ball_object,
+            enemy_object,
+            player_object,
+            WIDTH,
+            HEIGHT,
+            scores)
     
         screen.fill("black")
 
+
         if show_welcome_screen:
             draw.draw_welcome_message(
-                screen,text_font,
+                screen,
+                text_font,
                 text_color,
-                scores,
-                WIDTH,HEIGHT,
-                player_score_pos,
-                enemy_score_pos,
-                message_pos,
-                ball_object,
-                enemy_object,
-                player_object)
-            
-            while show_game_screen == False:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYDOWN:
-                        show_game_screen = True
-                        show_welcome_screen = False
+                message_pos)
+        
+
 
         if show_game_screen:
             # game.restart_game(ball_object,
@@ -124,17 +139,6 @@ def main():
                                  player_score_pos,
                                  enemy_score_pos,
                                  message_pos)
-            
-            for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
-                    show_game_screen = True
-                    show_welcome_screen = False
-
-        # draw.draw_objects(ball_object,enemy_object,player_object,screen)
-
-        # draw.draw_text(screen,text_font,text_color,scores, WIDTH, HEIGHT, player_score_pos, enemy_score_pos)
-        
-        # draw.draw_welcome_message(screen, text_font, text_color, scores,WIDTH,HEIGHT,player_score_pos,enemy_score_pos,message_pos)
 
 
         pygame.display.update()

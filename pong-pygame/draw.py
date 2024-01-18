@@ -37,15 +37,8 @@ class draw:
     def draw_welcome_message(screen: pygame.Surface, 
                              text_font: pygame.font.SysFont, 
                              text_color: tuple[int,int,int], 
-                             scores: list[int], 
-                             WIDTH: int, 
-                             HEIGHT: int, 
-                             player_score_pos: tuple[int,int], 
-                             enemy_score_pos: tuple[int,int], 
-                             message_pos: tuple[int,int],
-                             ball_object: ball, 
-                             enemy_object: enemy_bat, player_object: player_bat):
-        message = "Welcome to Pong! Press any key to begin."
+                             message_pos: tuple[int,int]):
+        message = "Welcome to Pong! Press any key to begin or q to quit."
         message_text_surface = text_font.render(message,True, text_color)
         message_text_surface_rect = message_text_surface.get_rect()
         
