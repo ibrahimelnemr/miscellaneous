@@ -8,6 +8,7 @@ from ball import ball
 from logic import logic
 from draw import draw
 from game import game
+from game2 import game2
 
 pygame.font.init()
 pygame.display.set_caption("Pong")
@@ -15,13 +16,9 @@ pygame.display.set_caption("Pong")
 WIDTH = 1000
 HEIGHT = 800
 
-BALL_VEL = 7
-PLAYER_1_BAT_VEL = 10
-PLAYER_2_BAT_VEL = 10
-
 text_font = pygame.font.SysFont("arial", 36)
 text_color = (255, 255, 255)
-scores = [0,0]
+scores = [0, 0]
 player_score_pos = (WIDTH // 3, HEIGHT // 3)
 enemy_score_pos = (WIDTH - WIDTH // 3, HEIGHT // 3)
 message_pos = (WIDTH // 2, HEIGHT // 2)
@@ -36,24 +33,24 @@ def main():
     show_game_screen = False
     show_end_screen = False
 
-    player_object = player_bat (
-        pos_x=10, 
-        pos_y=HEIGHT//2, 
-        width=10, 
-        height=150, 
-        vel=PLAYER_1_BAT_VEL)
-    
-    enemy_object = enemy_bat (
-        pos_x=WIDTH-20, 
-        pos_y=HEIGHT//2, 
-        width=10, 
-        height=150, 
-        vel=PLAYER_2_BAT_VEL)    
-    
+    player_object = player_bat(
+        pos_x=10,
+        pos_y=HEIGHT//2,
+        width=10,
+        height=150,
+        vel=10)
+
+    enemy_object = enemy_bat(
+        pos_x=WIDTH-20,
+        pos_y=HEIGHT//2,
+        width=10,
+        height=150,
+        vel=10)
+
     ball_object = ball(
-        pos_x=WIDTH/2, 
-        pos_y=HEIGHT/2, 
-        width = 20, 
+        pos_x=WIDTH/2,
+        pos_y=HEIGHT/2,
+        width=20,
         vel=BALL_VEL)
 
     while run:
@@ -65,16 +62,32 @@ def main():
                 run = False
                 break
 
-            if keys[pygame.K_q] :
+            if keys[pygame.K_q]:
                 print("QUITTING")
                 run = False
                 break
 
             if event.type == pygame.KEYDOWN and show_welcome_screen:
+                game.restart_game(ball_object,
+                                  BALL_VEL,
+                                  enemy_object,
+                                  player_object,
+                                  WIDTH,
+                                  HEIGHT,
+                                  scores)
+
                 show_game_screen = True
                 show_welcome_screen = False
-            
+
             if event.type == pygame.KEYDOWN and show_end_screen:
+                # restart the game
+                game.restart_game(ball_object,
+                                  BALL_VEL,
+                                  enemy_object,
+                                  player_object,
+                                  WIDTH,
+                                  HEIGHT,
+                                  scores)
                 show_game_screen = True
                 show_end_screen = False
 
@@ -84,7 +97,7 @@ def main():
             player_object,
             WIDTH,
             HEIGHT)
-        
+
         logic.handle_collisions(
             ball_object,
             enemy_object,
@@ -92,9 +105,8 @@ def main():
             WIDTH,
             HEIGHT,
             scores)
-    
-        screen.fill("black")
 
+        screen.fill("black")
 
         if show_welcome_screen:
             draw.draw_welcome_message(
@@ -102,18 +114,8 @@ def main():
                 text_font,
                 text_color,
                 message_pos)
-        
-
 
         if show_game_screen:
-            # game.restart_game(ball_object,
-            #                   BALL_VEL,
-            #                   enemy_object,
-            #                   player_object,
-            #                   WIDTH,
-            #                   HEIGHT,
-            #                   scores)
-            
             draw.draw_game_screen(screen,
                                   text_font,
                                   text_color,
@@ -127,9 +129,8 @@ def main():
                                   enemy_object,
                                   player_object)
 
-
         if show_end_screen:
-            
+
             draw.draw_end_screen(screen,
                                  text_font,
                                  text_color,
@@ -140,11 +141,11 @@ def main():
                                  enemy_score_pos,
                                  message_pos)
 
-
         pygame.display.update()
         clock.tick(60)
-    
+
     pygame.quit()
+
 
 if __name__ == "__main__":
     main()

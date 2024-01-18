@@ -6,7 +6,11 @@ from ball import ball
 
 class logic:
 
-    def handle_movement(ball_object: ball, enemy_object: enemy_bat, player_object: player_bat, WIDTH: int, HEIGHT: int):
+    def handle_movement(ball_object: ball, 
+                        enemy_object: enemy_bat, 
+                        player_object: player_bat, 
+                        WIDTH: int, 
+                        HEIGHT: int):
         keys = pygame.key.get_pressed()
 
         # move player bat
