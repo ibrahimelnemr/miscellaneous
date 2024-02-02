@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>python-cheatsheet.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style> 
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="python3-cheatsheet">Python3 Cheatsheet</h1>
+<p><a href="#strings">Strings</a><br>
+<a href="#lists">Lists</a><br>
+<a href="#dictionaries">Dictionaries</a><br>
+<a href="#sets">Sets</a><br>
+<a href="#loops-and-control-flow">Loops and Control Flow</a><br>
+<a href="#modules">Modules</a><br>
+<a href="#files">Files</a><br>
+<a href="#exceptions">Exceptions</a><br>
+<a href="#functions">Functions</a><br>
+<a href="#oop">OOP</a></p>
+<h3 id="strings">Strings</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Multiline strings</span>
+multiline_string = <span class="hljs-string">"""This is a
+multiline string"""</span>
+
+<span class="hljs-comment"># Length of a string</span>
+length = len(<span class="hljs-string">"Hello"</span>)  <span class="hljs-comment"># Output: 5</span>
+
+<span class="hljs-comment"># Checking if a string starts with a specific substring</span>
+starts_with = <span class="hljs-string">"Hello, World"</span>.startswith(<span class="hljs-string">"Hello"</span>)  <span class="hljs-comment"># Output: True</span>
+
+<span class="hljs-comment"># Checking if a string ends with a specific substring</span>
+ends_with = <span class="hljs-string">"Hello, World"</span>.endswith(<span class="hljs-string">"World"</span>)  <span class="hljs-comment"># Output: True</span>
+
+<span class="hljs-comment"># String interpolation</span>
+name = <span class="hljs-string">"Alice"</span>
+age = <span class="hljs-number">30</span>
+message = <span class="hljs-string">f"My name is <span class="hljs-subst">{name}</span> and I am <span class="hljs-subst">{age}</span> years old."</span>
+
+<span class="hljs-comment"># String formatting</span>
+formatted_message = <span class="hljs-string">"My name is {} and I am {} years old."</span>.format(name, age)
+
+<span class="hljs-comment"># Replacing substrings in a string</span>
+new_string = <span class="hljs-string">"Hello, World"</span>.replace(<span class="hljs-string">"World"</span>, <span class="hljs-string">"Python"</span>)  <span class="hljs-comment"># Output: Hello, Python</span>
+
+<span class="hljs-comment"># Splitting a string into a list of substrings</span>
+words = <span class="hljs-string">"Hello, World"</span>.split(<span class="hljs-string">","</span>)  <span class="hljs-comment"># Output: ['Hello', ' World']</span>
+
+<span class="hljs-comment"># Splicing a string</span>
+spliced_string = <span class="hljs-string">"Hello, World"</span>[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>]  <span class="hljs-comment"># Output: "ello"</span>
+
+<span class="hljs-comment"># Converting a string to lowercase</span>
+lowercase_string = <span class="hljs-string">"Hello"</span>.lower()  <span class="hljs-comment"># Output: "hello"</span>
+
+<span class="hljs-comment"># Converting a string to title case</span>
+title_case_string = <span class="hljs-string">"hello world"</span>.title()  <span class="hljs-comment"># Output: "Hello World"</span>
+
+<span class="hljs-comment"># Splitting a string into lines</span>
+lines = <span class="hljs-string">"Hello\nWorld"</span>.splitlines()  <span class="hljs-comment"># Output: ['Hello', 'World']</span>
+</div></code></pre>
+<h3 id="lists">Lists</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Creating a list</span>
+my_list = list(range(<span class="hljs-number">1</span>, <span class="hljs-number">6</span>))  <span class="hljs-comment"># Output: [1, 2, 3, 4, 5]</span>
+
+<span class="hljs-comment"># Slicing a list</span>
+sliced_list = my_list[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]  <span class="hljs-comment"># Output: [2, 3, 4]</span>
+
+<span class="hljs-comment"># Length of a list</span>
+length = len(my_list)  <span class="hljs-comment"># Output: 5</span>
+
+<span class="hljs-comment"># Sum of all elements in a list</span>
+total = sum(my_list)  <span class="hljs-comment"># Output: 15</span>
+
+<span class="hljs-comment"># Minimum value in a list</span>
+minimum = min(my_list)  <span class="hljs-comment"># Output: 1</span>
+
+<span class="hljs-comment"># Maximum value in a list</span>
+maximum = max(my_list)  <span class="hljs-comment"># Output: 5</span>
+
+<span class="hljs-comment"># Appending an element to a list</span>
+my_list.append(<span class="hljs-number">6</span>)  <span class="hljs-comment"># Output: [1, 2, 3, 4, 5, 6]</span>
+
+<span class="hljs-comment"># Sorting a list</span>
+my_list.sort()  <span class="hljs-comment"># Output: [1, 2, 3, 4, 5, 6]</span>
+
+<span class="hljs-comment"># Joining list elements into a string</span>
+joined_string = <span class="hljs-string">", "</span>.join(map(str, my_list))  <span class="hljs-comment"># Output: "1, 2, 3, 4, 5, 6"</span>
+
+<span class="hljs-comment"># List comprehensions</span>
+squared = [x**<span class="hljs-number">2</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> my_list]  <span class="hljs-comment"># Output: [1, 4, 9, 16, 25, 36]</span>
+
+<span class="hljs-comment"># Removing an element from a list by value</span>
+my_list.remove(<span class="hljs-number">3</span>)  <span class="hljs-comment"># Output: [1, 2, 4, 5, 6]</span>
+
+<span class="hljs-comment"># Reversing a list</span>
+reversed_list = my_list[::<span class="hljs-number">-1</span>]  <span class="hljs-comment"># Output: [6, 5, 4, 2, 1]</span>
+</div></code></pre>
+<h3 id="dictionaries">Dictionaries</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Creating a dictionary</span>
+my_dict = {<span class="hljs-string">'a'</span>: <span class="hljs-number">1</span>, <span class="hljs-string">'b'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'c'</span>: <span class="hljs-number">3</span>}
+
+<span class="hljs-comment"># Accessing values using keys</span>
+value = my_dict[<span class="hljs-string">'a'</span>]  <span class="hljs-comment"># Output: 1</span>
+
+<span class="hljs-comment"># Getting all keys</span>
+keys = my_dict.keys()  <span class="hljs-comment"># Output: dict_keys(['a', 'b', 'c'])</span>
+
+<span class="hljs-comment"># Getting all values</span>
+values = my_dict.values()  <span class="hljs-comment"># Output: dict_values([1, 2, 3])</span>
+
+<span class="hljs-comment"># Getting key-value pairs as tuples</span>
+items = my_dict.items()  <span class="hljs-comment"># Output: dict_items([('a', 1), ('b', 2), ('c', 3)])</span>
+
+<span class="hljs-comment"># Enumerating through dictionary items</span>
+<span class="hljs-keyword">for</span> index, (key, value) <span class="hljs-keyword">in</span> enumerate(my_dict.items()):
+    print(index, key, value)
+</div></code></pre>
+<h3 id="sets">Sets</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Creating a set</span>
+my_set = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>}
+
+<span class="hljs-comment"># Set operations (union, intersection, difference)</span>
+union_set = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>} | {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}  <span class="hljs-comment"># Output: {1, 2, 3, 4, 5}</span>
+intersection_set = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>} &amp; {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}  <span class="hljs-comment"># Output: {3}</span>
+difference_set = {<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>} - {<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>}  <span class="hljs-comment"># Output: {1, 2}</span>
+
+</div></code></pre>
+<h3 id="loops-and-control-flow">Loops and Control Flow</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># If statement</span>
+x = <span class="hljs-number">10</span>
+<span class="hljs-keyword">if</span> x &gt; <span class="hljs-number">5</span>:
+    print(<span class="hljs-string">"x is greater than 5"</span>)
+<span class="hljs-keyword">elif</span> x == <span class="hljs-number">5</span>:
+    print(<span class="hljs-string">"x is equal to 5"</span>)
+<span class="hljs-keyword">else</span>:
+    print(<span class="hljs-string">"x is less than 5"</span>)
+
+<span class="hljs-comment"># While loop</span>
+x = <span class="hljs-number">0</span>
+<span class="hljs-keyword">while</span> x &lt; <span class="hljs-number">5</span>:
+    print(x)
+    x += <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> x == <span class="hljs-number">3</span>:
+        <span class="hljs-keyword">continue</span>  <span class="hljs-comment"># Skip the rest of the loop body and continue with the next iteration</span>
+    <span class="hljs-keyword">if</span> x == <span class="hljs-number">4</span>:
+        <span class="hljs-keyword">break</span>  <span class="hljs-comment"># Exit the loop completely</span>
+
+<span class="hljs-comment"># For loop</span>
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">5</span>):
+    print(i)
+</div></code></pre>
+<h3 id="modules">Modules</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Importing a module</span>
+<span class="hljs-keyword">import</span> math
+
+<span class="hljs-comment"># Importing specific names from a module</span>
+<span class="hljs-keyword">from</span> math <span class="hljs-keyword">import</span> pi
+</div></code></pre>
+<h3 id="files">Files</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Opening a file</span>
+file = open(<span class="hljs-string">"filename.txt"</span>, <span class="hljs-string">"r"</span>)
+
+<span class="hljs-comment"># Reading from a file</span>
+content = file.read()
+
+<span class="hljs-comment"># Writing to a file</span>
+<span class="hljs-keyword">with</span> open(<span class="hljs-string">"filename.txt"</span>, <span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
+    file.write(<span class="hljs-string">"Hello, world!"</span>)
+
+</div></code></pre>
+<h3 id="exceptions">Exceptions</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Exception handling</span>
+<span class="hljs-keyword">try</span>:
+    result = <span class="hljs-number">10</span> / <span class="hljs-number">0</span>
+<span class="hljs-keyword">except</span> ZeroDivisionError <span class="hljs-keyword">as</span> e:
+    print(<span class="hljs-string">"Error:"</span>, e)
+</div></code></pre>
+<h3 id="functions">Functions</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># arguments</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(a, b)</span>:</span>
+    <span class="hljs-keyword">return</span> a + b
+
+result = add(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>)  <span class="hljs-comment"># Output: 7</span>
+
+<span class="hljs-comment"># default values (default values in function parameters)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">greet</span><span class="hljs-params">(name=<span class="hljs-string">"World"</span>)</span>:</span>
+    print(<span class="hljs-string">"Hello, "</span> + name)
+
+greet()  <span class="hljs-comment"># Output: Hello, World</span>
+greet(<span class="hljs-string">"Alice"</span>)  <span class="hljs-comment"># Output: Hello, Alice</span>
+
+<span class="hljs-comment"># keyword arguments</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">greet_with_age</span><span class="hljs-params">(name, age)</span>:</span>
+    print(<span class="hljs-string">f"Hello, <span class="hljs-subst">{name}</span>! You are <span class="hljs-subst">{age}</span> years old."</span>)
+
+greet_with_age(name=<span class="hljs-string">"Alice"</span>, age=<span class="hljs-number">30</span>)  <span class="hljs-comment"># Output: Hello, Alice! You are 30 years old.</span>
+
+<span class="hljs-comment"># docstrings (docstrings for documenting functions)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">multiply</span><span class="hljs-params">(a, b)</span>:</span>
+    <span class="hljs-string">"""
+    This function multiplies two numbers.
+    """</span>
+    <span class="hljs-keyword">return</span> a * b
+
+<span class="hljs-comment"># *args (arbitrary number of arguments)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">add</span><span class="hljs-params">(*args)</span>:</span>
+    total = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> args:
+        total += num
+    <span class="hljs-keyword">return</span> total
+
+result = add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)  <span class="hljs-comment"># Output: 10</span>
+
+<span class="hljs-comment"># **kwargs (arbitrary number of keyword arguments)</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">greet_with_details</span><span class="hljs-params">(**kwargs)</span>:</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-string">'name'</span> <span class="hljs-keyword">in</span> kwargs <span class="hljs-keyword">and</span> <span class="hljs-string">'age'</span> <span class="hljs-keyword">in</span> kwargs:
+        print(<span class="hljs-string">f"Hello, <span class="hljs-subst">{kwargs[<span class="hljs-string">'name'</span>]}</span>! You are <span class="hljs-subst">{kwargs[<span class="hljs-string">'age'</span>]}</span> years old."</span>)
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">"Hello, Unknown!"</span>)
+
+greet_with_details(name=<span class="hljs-string">"Alice"</span>, age=<span class="hljs-number">30</span>)  <span class="hljs-comment"># Output: Hello, Alice! You are 30 years old.</span>
+
+
+<span class="hljs-comment"># Taking command line arguments</span>
+<span class="hljs-keyword">import</span> sys
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-comment"># Taking command line arguments</span>
+    <span class="hljs-keyword">if</span> len(sys.argv) == <span class="hljs-number">3</span>:
+        arg1 = int(sys.argv[<span class="hljs-number">1</span>])
+        arg2 = int(sys.argv[<span class="hljs-number">2</span>])
+        print(<span class="hljs-string">f"Result: <span class="hljs-subst">{arg1 + arg2}</span>"</span>)
+    <span class="hljs-keyword">else</span>:
+        print(<span class="hljs-string">"Usage: python script.py &lt;arg1&gt; &lt;arg2&gt;"</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    main()
+</div></code></pre>
+<h3 id="oop-object-oriented-programming">OOP (Object-Oriented Programming)</h3>
+<pre class="hljs"><code><div><span class="hljs-comment"># Class initialization</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, x)</span>:</span>
+        self.x = x
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_x</span><span class="hljs-params">(self)</span>:</span>
+        print(self.x)
+
+<span class="hljs-comment"># Defining a method inside a class</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">my_method</span><span class="hljs-params">(self)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+
+<span class="hljs-comment"># Using class methods</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span>:</span>
+<span class="hljs-meta">    @classmethod</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">my_class_method</span><span class="hljs-params">(cls)</span>:</span>
+        <span class="hljs-keyword">pass</span>
+
+<span class="hljs-comment"># Inheritance</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ChildClass</span><span class="hljs-params">(ParentClass)</span>:</span>
+    <span class="hljs-keyword">pass</span>
+</div></code></pre>
+
+</body>
+</html>
