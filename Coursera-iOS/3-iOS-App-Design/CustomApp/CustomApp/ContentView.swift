@@ -18,7 +18,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .navigationTitle("Countries")
+            .navigationTitle("Weather Finder App")
         }
         .onAppear {
             viewModel.fetchCountries()
