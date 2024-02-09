@@ -33,7 +33,7 @@ class WeatherService {
         
         DispatchQueue.global().async {
             
-            let countries = ["Country 1", "Country 2", "Country 3"]
+            let countries = ["Egypt", "Japan", "USA"]
             completion(.success(countries))
             
             // completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch countries."])))
@@ -78,7 +78,24 @@ class WeatherService {
                 completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
                 return
             }
+            do {
+                          let decoder = JSONDecoder()
+                          let weatherData = try decoder.decode(WeatherData.self, from: data)
 
+                          
+                          let temperature = Int(weatherData.main.temp - 273.15)
+                          let humidity = weatherData.main.humidity
+                          let description = weatherData.weather.first?.description ?? ""
+
+                          
+                          let weather = Weather(temperature: temperature, humidity: humidity, description: description)
+
+                          
+                print(weather)
+                          completion(.success(weather))
+                      } catch {
+                          completion(.failure(error))
+                      }
             
             if let jsonString = String(data: data, encoding: .utf8) {
                 print("JSON Data:\n\(jsonString)")
@@ -91,10 +108,25 @@ class WeatherService {
             
             
             // SEND DUMMY DATA
-            let weatherData = Weather(temperature: 25, humidity: 60, description: "Sunny")
-            completion(.success(weatherData))
+//            let weatherData = Weather(temperature: 25, humidity: 60, description: "Sunny")
+//            completion(.success(weatherData))
             
             // completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch weather data for \(city)."])))
         }.resume()
     }
+}
+
+
+struct WeatherData: Codable {
+    let main: Main
+    let weather: [WeatherInfo]
+}
+
+struct Main: Codable {
+    let temp: Double
+    let humidity: Int
+}
+
+struct WeatherInfo: Codable {
+    let description: String
 }
