@@ -45,13 +45,14 @@ class WeatherService {
         DispatchQueue.global().async {
             
             let cities = ["City 1", "City 2", "City 3"]
+            let cities = ["Cairo", "New York", "Tokyo"]
             completion(.success(cities))
             
             // completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch cities for \(country)."])))
         }
     }
     
-    func fetchWeather(for city: String, completion: @escaping (Result<Weather>) -> Void) {
+    func fetchDummyWeather(for city: String, completion: @escaping (Result<Weather>) -> Void) {
         
         DispatchQueue.global().async {
             
@@ -60,5 +61,41 @@ class WeatherService {
             
             // completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch weather data for \(city)."])))
         }
+    }
+    
+    func fetchWeather(for city: String, completion: @escaping (Result<Weather>) -> Void) {
+        guard let url = URL(string: "\(baseURL)?q=\(city)&appid=\(apiKey)") else {
+            completion(.failure(NSError(domain: "WeatherService", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "No data received"])))
+                return
+            }
+
+            
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("JSON Data:\n\(jsonString)")
+            } else {
+                print("Failed to convert data to string")
+            }
+
+            
+            //completion(.success(data))
+            
+            
+            // SEND DUMMY DATA
+            let weatherData = Weather(temperature: 25, humidity: 60, description: "Sunny")
+            completion(.success(weatherData))
+            
+            // completion(.failure(NSError(domain: "WeatherService", code: 500, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch weather data for \(city)."])))
+        }.resume()
     }
 }
