@@ -160,6 +160,86 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
 }
+enum FilterType: String {
+    case brightness = "Brightness"
+    case contrast = "Contrast"
+}
+
+public class Filter {
+    let type: FilterType
+    let strength: Int
+    
+    init(type: FilterType, strength: Int) {
+        self.type = type
+        self.strength = strength
+    }
+    
+    func apply(inout to pixels: [Pixel]) {
+        switch type {
+        case .brightness:
+            applyBrightness(to: &pixels)
+        case .contrast:
+            applyContrast(to: &pixels)
+        }
+    }
+    
+    private func applyBrightness(inout to pixels: [Pixel]) {
+        for i in 0..<pixels.count {
+            pixels[i].red = applyFormula(pixels[i].red)
+            pixels[i].green = applyFormula(pixels[i].green)
+            pixels[i].blue = applyFormula(pixels[i].blue)
+        }
+    }
+    
+    private func applyContrast(inout to pixels: [Pixel]) {
+        for i in 0..<pixels.count {
+            pixels[i].red = applyFormula(pixels[i].red)
+            pixels[i].green = applyFormula(pixels[i].green)
+            pixels[i].blue = applyFormula(pixels[i].blue)
+        }
+    }
+    
+    private func applyFormula(value: UInt8) -> UInt8 {
+        let newValue = Int(value) + strength
+        return UInt8(max(0, min(255, newValue)))
+    }
+}
+
+class ImageProcessorTest {
+    var filters: [Filter] = []
+    
+    init() {
+        filters = [
+        Filter(type: .brightness, strength: 50),
+        Filter(type: .contrast, strength: 2)
+        ]
+    
+    }
+    
+    func applyFilters(inout to myRGBA: RGBAImage) {
+        for filter in filters {
+            filter.apply(to: &myRGBA.pixels)
+        }
+    }
+    
+    func applyFilterByName(inout to myRGBA: RGBAImage, filterName: String) {
+        if let filter = filters.first where filter.type.rawValue == filterName {
+            filter.apply(to: &myRGBA.pixels)
+        } else {
+            print("Filter '\(filterName)' not found")
+        }
+    }
+    
+    func applyFiltersByName(inout to myRGBA: RGBAImage, filterNames: [String]) {
+        for filterName in filterNames {
+            if let filter = filters.first where filter.type.rawValue == filterName {
+                filter.apply(to: &myRGBA.pixels)
+            } else {
+                print("Filter '\(filterName)' not found")
+            }
+        }
+    }
+}
 
 
 public class ImageProcessor {
