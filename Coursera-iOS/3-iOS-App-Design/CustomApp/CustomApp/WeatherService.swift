@@ -12,8 +12,20 @@ enum Result<T> {
 }
 
 class WeatherService {
+    private var apiKey: String
+    private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     init() {
         
+        let path = "/Users/ibrahim/csproj/miscellaneous/Coursera-iOS/3-iOS-App-Design/CustomApp/CustomApp/.env"
+        do {
+            var env = try DotEnv.read(path: path)
+            env.load()
+            apiKey = ProcessInfo.processInfo.environment["API_KEY"] ?? "Api Key not found"
+            print(apiKey)
+        } catch {
+            print("Error loading API key: \(error)")
+            apiKey = ""
+        }
         
     }
     
