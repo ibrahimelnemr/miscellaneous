@@ -38,6 +38,16 @@ struct ContentView: View {
                         .background(Color.green)
                         .cornerRadius(10)
                 }
+                .padding(.bottom)
+                NavigationLink(destination: SelectAuthorPage()) {
+                    Text("Generate By Author")
+                        .font(.headline)
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding(.bottom)
             }
             .navigationTitle("Quote Generator")
         }

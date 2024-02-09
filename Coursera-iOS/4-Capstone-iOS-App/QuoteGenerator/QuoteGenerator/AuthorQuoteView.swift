@@ -1,16 +1,18 @@
 //
-//  CategoryQuotePage.swift
+//  AuthorQuoteView.swift
 //  QuoteGenerator
+//AuthorQuoteView.swift
+
 
 import SwiftUI
 
-struct CategoryQuotePage: View {
-    let category: String
+struct AuthorQuotePage: View {
+    let author: String
     @State private var quotes: [QuoteData] = [] // Update to hold QuoteData objects
     
     var body: some View {
         VStack {
-            Text("\(category) Quotes")
+            Text("\(author) Quotes")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding()
@@ -18,7 +20,7 @@ struct CategoryQuotePage: View {
             List(quotes, id: \.quoteText) { quoteData in
                 VStack(alignment: .leading) {
                     Text(quoteData.quoteText)
-                    Text("- \(quoteData.quoteAuthor)") 
+                    Text("- \(quoteData.quoteAuthor)")
                         .foregroundColor(.gray)
                 }
                 .padding()
@@ -26,7 +28,7 @@ struct CategoryQuotePage: View {
             .padding()
             
             Button(action: {
-                fetchCategoryQuotes()
+                fetchAuthorQuotes()
             }) {
                 Text("Regenerate")
                     .padding()
@@ -38,14 +40,14 @@ struct CategoryQuotePage: View {
             
             Spacer()
         }
-        .navigationTitle("\(category) Quotes")
+        .navigationTitle("\(author) Quotes")
         .onAppear {
-            fetchCategoryQuotes()
+            fetchAuthorQuotes()
         }
     }
     
-    private func fetchCategoryQuotes() {
-        QuoteService.fetchQuotesByCategory(category: category) { result in
+    private func fetchAuthorQuotes() {
+        QuoteService.fetchQuotesByAuthor(author: author) { result in
             switch result {
             case .success(let quotes):
                 DispatchQueue.main.async {
@@ -55,11 +57,5 @@ struct CategoryQuotePage: View {
                 print("Error fetching category quotes: \(error.localizedDescription)")
             }
         }
-    }
-}
-
-struct CategoryQuotePage_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoryQuotePage(category: "Inspiration")
     }
 }
