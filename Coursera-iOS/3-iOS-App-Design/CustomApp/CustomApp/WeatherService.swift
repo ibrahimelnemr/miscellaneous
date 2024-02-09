@@ -44,7 +44,6 @@ class WeatherService {
         
         DispatchQueue.global().async {
             
-            let cities = ["City 1", "City 2", "City 3"]
             let cities = ["Cairo", "New York", "Tokyo"]
             completion(.success(cities))
             
