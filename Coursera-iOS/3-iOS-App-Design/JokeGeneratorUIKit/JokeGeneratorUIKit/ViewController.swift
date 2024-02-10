@@ -10,65 +10,57 @@ class ViewController: UIViewController {
     // MARK: - Private Methods
     
     private func setupUI() {
-        title = "Quote Generator"
+        
+        title = "Joke Generator"
         
         // Image View
         let imageView = UIImageView(image: UIImage(systemName: "quote.bubble"))
         imageView.contentMode = .scaleAspectFit
-        imageView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        imageView.center = view.center
+        imageView.tintColor = .black
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(imageView)
         
-        // Generate Random Quote Button
-//        let generateRandomQuoteButton = UIButton(type: .system)
-//        generateRandomQuoteButton.setTitle("Generate Random Quote", for: .normal)
-//        generateRandomQuoteButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-//        generateRandomQuoteButton.setTitleColor(.white, for: .normal)
-//        generateRandomQuoteButton.backgroundColor = .blue
-//        generateRandomQuoteButton.layer.cornerRadius = 10
-//        generateRandomQuoteButton.addTarget(self, action: #selector(didTapGenerateRandomQuote), for: .touchUpInside)
-//        
-        // Generate By Category Button
-//        let generateByCategoryButton = UIButton(type: .system)
-//        generateByCategoryButton.setTitle("Generate By Category", for: .normal)
-//        generateByCategoryButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-//        generateByCategoryButton.setTitleColor(.white, for: .normal)
-//        generateByCategoryButton.backgroundColor = .green
-//        generateByCategoryButton.layer.cornerRadius = 10
-//        generateByCategoryButton.addTarget(self, action: #selector(didTapGenerateByCategory), for: .touchUpInside)
-//        
         // Generate Random Joke Button
         let generateRandomJokeButton = UIButton(type: .system)
         generateRandomJokeButton.setTitle("Generate Random Joke", for: .normal)
         generateRandomJokeButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         generateRandomJokeButton.setTitleColor(.white, for: .normal)
-        generateRandomJokeButton.backgroundColor = .orange
-        generateRandomJokeButton.layer.cornerRadius = 10
+        generateRandomJokeButton.backgroundColor = UIColor(red: 0.35, green: 0.67, blue: 0.80, alpha: 1.00) // Light blue color
+        generateRandomJokeButton.layer.cornerRadius = 15
+        generateRandomJokeButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20) // Add padding
         generateRandomJokeButton.addTarget(self, action: #selector(didTapGenerateRandomJoke), for: .touchUpInside)
+        generateRandomJokeButton.translatesAutoresizingMaskIntoConstraints = false
         
         // Select Joke Category Button
         let selectJokeCategoryButton = UIButton(type: .system)
         selectJokeCategoryButton.setTitle("Select Joke Category", for: .normal)
         selectJokeCategoryButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         selectJokeCategoryButton.setTitleColor(.white, for: .normal)
-        selectJokeCategoryButton.backgroundColor = .purple
-        selectJokeCategoryButton.layer.cornerRadius = 10
+        selectJokeCategoryButton.backgroundColor = UIColor(red: 0.35, green: 0.67, blue: 0.80, alpha: 1.00) // Light blue color
+        selectJokeCategoryButton.layer.cornerRadius = 15
+        selectJokeCategoryButton.contentEdgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20) // Add padding
         selectJokeCategoryButton.addTarget(self, action: #selector(didTapSelectJokeCategory), for: .touchUpInside)
+        selectJokeCategoryButton.translatesAutoresizingMaskIntoConstraints = false
         
         // Stack View
-        let stackView = UIStackView(arrangedSubviews: [ generateRandomJokeButton, selectJokeCategoryButton])
+        let stackView = UIStackView(arrangedSubviews: [imageView, generateRandomJokeButton, selectJokeCategoryButton])
         stackView.axis = .vertical
         stackView.spacing = 20
-        stackView.alignment = .fill
-        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(stackView)
         
         // Constraints
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            imageView.widthAnchor.constraint(equalToConstant: 120), // Adjust size of the icon
+            imageView.heightAnchor.constraint(equalToConstant: 120), // Adjust size of the icon
+            
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 40), // Adjust vertical position of the stack view
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -83,5 +75,4 @@ class ViewController: UIViewController {
         let selectJokeCategoryViewController = SelectJokeCategoryViewController()
         navigationController?.pushViewController(selectJokeCategoryViewController, animated: true)
     }
-
 }

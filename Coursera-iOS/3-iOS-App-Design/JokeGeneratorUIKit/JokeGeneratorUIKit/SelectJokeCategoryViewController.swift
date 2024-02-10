@@ -25,7 +25,7 @@ class SelectJokeCategoryViewController: UIViewController {
     
     // MARK: - Data
     
-    private let categories = ["Misc", "Programming", "Pun", "Spooky", "Christmas", "Miscellaneous"]
+    private let categories = ["Misc", "Programming", "Pun", "Miscellaneous"]
     
     // MARK: - View Lifecycle
     

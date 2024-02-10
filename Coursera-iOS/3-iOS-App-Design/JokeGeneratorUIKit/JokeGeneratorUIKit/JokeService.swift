@@ -31,6 +31,7 @@ class JokeService {
             do {
                 let jokeResponse = try JSONDecoder().decode(JokeResponse.self, from: data)
                 let joke = jokeResponse.joke
+                print(joke)
                 completion(.success(joke))
             } catch {
                 completion(.failure(error))
@@ -64,6 +65,7 @@ class JokeService {
             do {
                 let jokeResponse = try JSONDecoder().decode(JokeResponse.self, from: data)
                 let joke = jokeResponse.joke
+                print(joke)
                 completion(.success(joke))
             } catch {
                 completion(.failure(error))

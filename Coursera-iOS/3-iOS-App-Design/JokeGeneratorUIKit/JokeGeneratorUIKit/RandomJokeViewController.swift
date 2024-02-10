@@ -1,37 +1,37 @@
+//
+//  RandomJokeViewController.swift
+//  JokeGeneratorUIKit
+//
 
 import UIKit
 
 class RandomJokeViewController: UIViewController {
-    
-    // MARK: - UI Elements
-    
-    private let jokeLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private lazy var regenerateButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Regenerate", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        button.backgroundColor = .blue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(regenerateButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
+
     // MARK: - Properties
     
     private var currentJoke: String? {
         didSet {
-            jokeLabel.text = currentJoke
+            DispatchQueue.main.async { [weak self] in
+                self?.jokeLabel.text = self?.currentJoke
+            }
         }
     }
+    
+    private let jokeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private lazy var generateNewButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Generate New", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(fetchRandomJoke), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - View Lifecycle
     
@@ -48,35 +48,35 @@ class RandomJokeViewController: UIViewController {
         title = "Random Joke"
         
         view.addSubview(jokeLabel)
+        jokeLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
+            jokeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             jokeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            jokeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            jokeLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            jokeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         
-        view.addSubview(regenerateButton)
+        view.addSubview(generateNewButton)
+        generateNewButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
-            regenerateButton.topAnchor.constraint(equalTo: jokeLabel.bottomAnchor, constant: 20),
-            regenerateButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            regenerateButton.widthAnchor.constraint(equalToConstant: 120),
-            regenerateButton.heightAnchor.constraint(equalToConstant: 40)
+            generateNewButton.topAnchor.constraint(equalTo: jokeLabel.bottomAnchor, constant: 20),
+            generateNewButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            generateNewButton.widthAnchor.constraint(equalToConstant: 150),
+            generateNewButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    private func fetchRandomJoke() {
+    // MARK: - Actions
+    
+    @objc private func fetchRandomJoke() {
         JokeService.fetchRandomJoke { [weak self] result in
             switch result {
             case .success(let joke):
                 self?.currentJoke = joke
             case .failure(let error):
-                print("Error fetching random joke: \(error.localizedDescription)")
+                print("Error fetching random joke: \(error)")
             }
         }
-    }
-    
-    // MARK: - Actions
-    
-    @objc private func regenerateButtonTapped() {
-        fetchRandomJoke()
     }
 }
