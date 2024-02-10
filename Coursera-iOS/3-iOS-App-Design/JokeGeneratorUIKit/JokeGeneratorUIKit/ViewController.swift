@@ -74,7 +74,6 @@ class ViewController: UIViewController {
     
     // MARK: - Actions
 
-     
     @objc private func didTapGenerateRandomJoke() {
         let randomJokeViewController = RandomJokeViewController()
         navigationController?.pushViewController(randomJokeViewController, animated: true)
