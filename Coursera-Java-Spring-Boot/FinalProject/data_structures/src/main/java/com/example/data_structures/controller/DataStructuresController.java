@@ -11,16 +11,15 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/datastructures")
-public class DataStructureController {
+public class DataStructuresController {
 
     private final DataStructureService dataStructureService;
 
     @Autowired
-    public DataStructureController(DataStructureService dataStructureService) {
+    public DataStructuresController(DataStructureService dataStructureService) {
         this.dataStructureService = dataStructureService;
     }
 
-    
     @GetMapping("/arrays")
     public Object[] getAllArrays() {
         return dataStructureService.getAllArrays();
@@ -31,7 +30,6 @@ public class DataStructureController {
         return dataStructureService.createArray(array);
     }
 
-    
     @GetMapping("/strings")
     public List<String> getAllStrings() {
         return dataStructureService.getAllStrings();
@@ -42,7 +40,6 @@ public class DataStructureController {
         return dataStructureService.createString(str);
     }
 
-    
     @GetMapping("/lists")
     public List<Object> getAllLists() {
         return dataStructureService.getAllLists();
@@ -53,7 +50,6 @@ public class DataStructureController {
         return dataStructureService.createList(list);
     }
 
-    
     @GetMapping("/queues")
     public Queue<Object> getAllQueues() {
         return dataStructureService.getAllQueues();
@@ -64,7 +60,6 @@ public class DataStructureController {
         return dataStructureService.createQueue(queue);
     }
 
-    
     @GetMapping("/maps")
     public Map<Object, Object> getAllMaps() {
         return dataStructureService.getAllMaps();
@@ -75,7 +70,6 @@ public class DataStructureController {
         return dataStructureService.createMap(map);
     }
 
-    
     @GetMapping("/sets")
     public Set<Object> getAllSets() {
         return dataStructureService.getAllSets();

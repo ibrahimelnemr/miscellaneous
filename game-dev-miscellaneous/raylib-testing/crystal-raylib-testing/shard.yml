@@ -1,0 +1,6 @@
+name: raylib-cr-test
+version: 0.1.0
+
+dependencies:
+  raylib-cr:
+    github: sol-vin/raylib-cr

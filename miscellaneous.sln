@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "game-dev-miscellaneous", "game-dev-miscellaneous", "{33BF50DB-6155-4ABD-BE89-E1BEC01EF84D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "raylib-testing", "raylib-testing", "{EBCD58F9-1D9A-4B50-95CD-01B479CC69BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "csharp-raylib-testing", "game-dev-miscellaneous\raylib-testing\csharp-raylib-testing\csharp-raylib-testing.csproj", "{64979C29-85B0-49B9-B8BB-12947F7EB0A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64979C29-85B0-49B9-B8BB-12947F7EB0A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64979C29-85B0-49B9-B8BB-12947F7EB0A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64979C29-85B0-49B9-B8BB-12947F7EB0A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64979C29-85B0-49B9-B8BB-12947F7EB0A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EBCD58F9-1D9A-4B50-95CD-01B479CC69BE} = {33BF50DB-6155-4ABD-BE89-E1BEC01EF84D}
+		{64979C29-85B0-49B9-B8BB-12947F7EB0A6} = {EBCD58F9-1D9A-4B50-95CD-01B479CC69BE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A60FD7D5-1C38-4BFD-8B19-C7BB5A7C18BC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,29 @@
+# Crystal backup files
+*.cr.bak
+
+# Dependency directories
+libs/
+bin/
+.deps/
+lib/
+
+# Compiled binary
+*.o
+
+# macOS files
+.DS_Store
+
+# Linux/Unix system files
+*~
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+
+# Dependency files
+.shards/
+.shard.yml.lock
