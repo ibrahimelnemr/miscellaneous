@@ -380,3 +380,89 @@ main()
 ```
 
 `nim compile --run main.nim`
+
+# Swift (Raylib)
+
+`mkdir swift-raylib-test`
+
+`cd swift-raylib-test`
+
+`swift package init --type executable`
+
+`Package.swift` should look like this:
+
+```swift
+// swift-tools-version: 5.9
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "swift-raylib-test",
+    dependencies: [
+        .package(url: "https://github.com/STREGAsGate/Raylib.git", branch: "master")  
+    ],
+    
+    targets: [
+        // Targets are the basic building blocks of a package, defining a module or a test suite.
+        // Targets can depend on other targets in this package and products from dependencies.
+        .executableTarget(
+            name: "swift-raylib-test",
+            dependencies: ["Raylib"]),
+    ]
+)
+
+```
+
+Add the following to `main.swift`
+
+```swift
+import Raylib
+
+let screenWidth: Int32 = 800
+let screenHeight: Int32 = 450
+
+Raylib.initWindow(screenWidth, screenHeight, "MyGame")
+Raylib.setTargetFPS(30)
+let randomColors: [Color] = [.blue, .red, .green, .yellow, .darkBlue, .maroon, .magenta]
+var ballColor: Color = .maroon
+var ballPosition = Vector2(x: -100, y: -100)
+var previousBallPosition: Vector2
+while Raylib.windowShouldClose == false {
+    // update
+    previousBallPosition = ballPosition
+    ballPosition = Raylib.getMousePosition()
+    if Raylib.isMouseButtonDown(.left) {
+        ballColor = randomColors.randomElement() ?? .black
+    }
+    let size = max(abs(ballPosition.x - previousBallPosition.x) + abs(ballPosition.y - previousBallPosition.y), 10)
+
+    // draw
+    Raylib.beginDrawing()
+    Raylib.clearBackground(.rayWhite)
+    Raylib.drawText("Hello, world!", 425, 25, 25, .darkGray)
+    Raylib.drawCircleV(ballPosition, size, ballColor)
+    Raylib.drawFPS(10, 10)
+    Raylib.endDrawing()
+}
+Raylib.closeWindow()
+```
+For initial testing, just add `import Raylib` to see if it builds without issues.
+
+`swift build`
+
+`swift run`
+
+If you encounter build issues, specifically issues like the following:
+
+```
+Building for debugging...
+gcc-13: error: unrecognized command-line option '-fobjc-arc'; did you mean '-fobjc-gc'?
+gcc-13: error: unrecognized command-line option '-target'
+gcc-13: error: unrecognized command-line option '-fblocks'
+```
+Then run
+
+`CC=gcc-8 swift build`
+
+`CC=gcc-8 swift run`
