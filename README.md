@@ -6,6 +6,10 @@ Miscellaneous code challenges and small projects
 
 A python program that encodes and decodes a string using a dictionary compression algorithm.
 
+## coursera-courses
+
+Projects or assignments associated with coursera courses.
+
 ## guessing-game
 
 A simple number guessing game implemented in multiple languages.
@@ -14,11 +18,7 @@ A simple number guessing game implemented in multiple languages.
 
 Experimentation and small projects in game frameworks.
 
-## raylib-testing
+### raylib-testing
 
 Basic setup for raylib bindings in multiple languages.
-
-## raylib-tutorials
-
-Following external tutorials for small projects with raylib bindings.
 

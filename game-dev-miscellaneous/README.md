@@ -16,6 +16,8 @@
 
 [Nim (naylib)](#nim-naylib)
 
+[Swift(raylib)](#swift-raylib)
+
 # Install raylib
 
 `brew install raylib`
