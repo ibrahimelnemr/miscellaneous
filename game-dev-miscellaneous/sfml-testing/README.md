@@ -134,12 +134,24 @@ Now, we will build SFML from source and link it statically
 
 `cd build`
 
+
+try this option to build it in the install directory
 `cmake .. -DCMAKE_INSTALL_PREFIX=../install`
+
+try this option to build it statically
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE`
 
 `make`
 
 `make install`
-
+If you get an error like the following
+```
+-- Installing: /Library/Frameworks/freetype.framework
+CMake Error at cmake_install.cmake:77 (file):
+  file INSTALL cannot make directory
+  "/Library/Frameworks/freetype.framework": Permission denied.
+```
+Then run `sudo make install`
 
 Return to the `sfml_cmake_testing` directory
 CMakeLists.txt in `sfml_cmake_testing` should have the following
@@ -179,4 +191,39 @@ If you get errors similar to the following on macOS:
 
 Then for each error, open "Privacy and Security" in settings, click "Allow Anyway" to the popup, and then run the executable again.
 
-Todo: Install SFML in custom directory
+# SFML Cmake Testing (build from source STATIC)
+
+Do the same as build from source, except:
+
+Instead of running
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install`
+
+
+Run
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE`
+
+To link the libraries statically
+
+Then run 
+
+`make`
+and `sudo make install`
+
+Your CMakeLists.txt in the `sfml-cmake-sources-testing` directory should look like this:
+
+```m
+cmake_minimum_required(VERSION 3.10)
+project(sfml_cmake_sources_testing)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(SFML_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../install")
+
+find_package(SFML 2.5.1 COMPONENTS graphics window audio network system REQUIRED)
+
+add_executable(sfml_cmake_sources_testing main.cpp)
+
+target_link_libraries(sfml_cmake_sources_testing PRIVATE sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
+```
