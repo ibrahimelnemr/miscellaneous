@@ -134,33 +134,33 @@ Now, we will build SFML from source and link it statically
 
 `cd build`
 
-`cmake .. -DSFML_BUILD_STATIC=TRUE`
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install`
 
 `make`
 
-`make installs`
+`make install`
 
-CMakeLists.txt should have the following
+
+Return to the `sfml_cmake_testing` directory
+CMakeLists.txt in `sfml_cmake_testing` should have the following
 
 ```m
 cmake_minimum_required(VERSION 3.10)
 project(sfml_cmake_testing)
 
-# Set C++ standard
 set(CMAKE_CXX_STANDARD 11)
 
-# Specify the path to SFMLConfig.cmake directory
-set(SFML_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SFML-2.5.1-sources/cmake")
+set(SFML_DIR "../SFML-2.5.1-sources/build")
 
-# Find SFML package (static linking)
-find_package(SFML 2.5 COMPONENTS graphics REQUIRED CONFIG)
+set(SFML_STATIC_LIBRARIES TRUE)
 
-# Add executable
+find_package(SFML 2.5.1 COMPONENTS graphics REQUIRED)
+
 add_executable(sfml_cmake_testing main.cpp)
 
-# Link with SFML libraries
-target_link_libraries(sfml_cmake_testing PRIVATE sfml-graphics-s sfml-window-s sfml-system-s)
+target_compile_definitions(sfml_cmake_testing PUBLIC SFML_STATIC)
 
+target_link_libraries(sfml_cmake_testing PUBLIC sfml-graphics)
 ```
 
 `mkdir build`
@@ -172,3 +172,11 @@ target_link_libraries(sfml_cmake_testing PRIVATE sfml-graphics-s sfml-window-s s
 `cmake --build .`
 
 You should now find a file `sfml_cmake_sources_testing` in the main directory, run it with `./sfml_cmake_sources_testing`
+
+If you get errors similar to the following on macOS:
+
+`“vorbisenc.framework” cannot be opened because the developer cannot be verified.`
+
+Then for each error, open "Privacy and Security" in settings, click "Allow Anyway" to the popup, and then run the executable again.
+
+Todo: Install SFML in custom directory

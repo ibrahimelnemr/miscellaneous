@@ -1,18 +1,16 @@
 cmake_minimum_required(VERSION 3.10)
-project(sfml_cmake_testing)
+project(sfml_cmake_sources_testing)
 
-# Set C++ standard
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Specify the path to SFMLConfig.cmake directory
-# set(SFML_DIR "${CMAKE_CURRENT_SOURCE_DIR}/SFML-2.5.1-sources/cmake")
-set(SFML_DIR "../SFML-2.5.1-sources/cmake")
+set(SFML_DIR "../SFML-2.5.1-sources/build")
 
-# Find SFML package (static linking)
-find_package(SFML 2.5 COMPONENTS graphics REQUIRED CONFIG)
+set(SFML_STATIC TRUE)
 
-# Add executable
-add_executable(sfml_cmake_testing main.cpp)
+add_executable(sfml_cmake_sources_testing main.cpp)
 
-# Link with SFML libraries
-target_link_libraries(sfml_cmake_testing PRIVATE sfml-graphics-s sfml-window-s sfml-system-s)
+find_package(SFML 2.5.1 COMPONENTS graphics window audio network system REQUIRED)
+
+target_link_libraries(sfml_cmake_sources_testing PUBLIC sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
