@@ -10,6 +10,10 @@
 
 [SFML Cmake Testing Build from source / Static linking / Custom install directory](#sfml-cmake-testing-build-from-source--static-linking--custom-install-directory) Works ✅
 
+[CSFML CMake Sources Testing](#csfml-cmake-sources-testing)
+
+[CSFML CMake Sources Static Testing](#csfml-cmake-sources-static-testing)
+
 # SFML Cmake Testing
 
 `mkdir sfml-cmake-testing`
@@ -385,3 +389,119 @@ target_link_libraries(sfml_cmake_sources_static_testing PRIVATE sfml-graphics sf
 `cmake --build .`
 
 You should now find a file `sfml_cmake_sources_static_testing` in the main directory, run it with `./sfml_cmake_sources_static_testing`
+
+
+# CSFML CMake Sources Testing
+
+Download CSFML 2.5.1 macOS from [https://www.sfml-dev.org/download/csfml/] to the directory on the same level as `csfml-cmake-sources-testing`
+
+This CSFML folder should be named `CSFML-2.5.1-macOS-clang`
+
+`mkdir csfml-cmake-sources-testing`
+
+`cd csfml-cmake-sources-testing`
+
+`touch CMakeLists.txt`
+
+`touch main.c`
+
+`main.c` should have the folowing
+
+```cpp
+#include <SFML/Graphics.h>
+
+int main() {
+
+    sfVideoMode mode = {800, 600, 32};
+    sfRenderWindow* window = sfRenderWindow_create(mode, "SFML Example", sfResize | sfClose, NULL);
+    if (!window) {
+        return -1;
+    }
+
+
+    while (sfRenderWindow_isOpen(window)) {
+
+        sfEvent event;
+        while (sfRenderWindow_pollEvent(window, &event)) {
+            if (event.type == sfEvtClosed) {
+                sfRenderWindow_close(window);
+            }
+        }
+
+        sfRenderWindow_clear(window, sfBlack);
+
+        sfRenderWindow_display(window);
+    }
+
+    sfRenderWindow_destroy(window);
+
+    return 0;
+}
+```
+
+Build CSFML from source:
+
+`cd ../CSFML-2.5.1-sources`
+
+`mkdir build`
+
+`cd build`
+
+
+try this option to build it in the install directory. 
+
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install`
+
+This is a custom directory, if this causes issues, then try again with 
+
+`cmake ..`
+
+`make`
+
+`make install`
+
+If you get an error like the following
+
+```
+-- Installing: /Library/Frameworks/freetype.framework
+CMake Error at cmake_install.cmake:77 (file):
+  file INSTALL cannot make directory
+  "/Library/Frameworks/freetype.framework": Permission denied.
+```
+
+Then run `sudo make install`
+
+Return to the `csfml-cmake-sources-testing` directory
+
+CMakeLists.txt in `csfml-cmake-sources-testing` should have the following
+
+```m
+cmake_minimum_required(VERSION 3.10)
+project(sfml_cmake_sources_static_testing)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(SFML_DIR "../SFML-2.5.1-sources/build")
+
+find_package(SFML 2.5.1 COMPONENTS graphics window audio network system REQUIRED)
+
+add_executable(sfml_cmake_sources_static_testing main.cpp)
+
+target_link_libraries(sfml_cmake_sources_static_testing PRIVATE sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
+```
+
+`mkdir build`
+
+`cd build`
+
+`cmake ..`
+
+`cmake --build .`
+
+You should now find a file `csfml-cmake-sources-testing` in the main directory, run it with `./csfml_cmake_sources_testing`
+
+# CSFML CMake Sources Static Testing 
+
+
