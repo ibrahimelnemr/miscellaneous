@@ -1,8 +1,11 @@
 # Table of Contents
 
 [SFML CMake testing](#sfml-cmake-testing)
-[SFML Cmake testing build from source](#sfml-cmake-testing-build-from-source)
+
+[SFML Cmake Testing (build from source dynamic linking default install directory)](#sfml-cmake-testing-build-from-source-dynamic-linking-default-install-directory) Works ✅
+
 [SFML CMake Testing build from source static custom install directory](#sfml-cmake-testing-build-from-source-static-custom-install-directory)
+
 [SFML CMake Testing build from source static default install directory](#sfml-cmake-testing-build-from-source-static-default-install-directory)
 
 # SFML Cmake Testing
@@ -91,7 +94,7 @@ For testing I have used
 
 You should now find a file `sfml_cmake_testing` in the main directory, run it with `./sfml_cmake_testing`
 
-# SFML Cmake Testing (build from source)
+# SFML Cmake Testing (build from source dynamic linking default install directory)
 
 `mkdir sfml-cmake-sources-testing`
 
@@ -159,6 +162,7 @@ CMake Error at cmake_install.cmake:77 (file):
 Then run `sudo make install`
 
 Return to the `sfml_cmake_testing` directory
+
 CMakeLists.txt in `sfml_cmake_testing` should have the following
 
 ```m
@@ -231,6 +235,31 @@ add_executable(sfml_cmake_sources_testing main.cpp)
 
 target_link_libraries(sfml_cmake_sources_testing PRIVATE sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
 ```
+
+To test the static library from the command line, you can also run 
+`cd sfml-cmake-sources-testing`
+
+Then run
+```bash
+g++ \
+-std=c++11 \
+-Wall \
+-Wextra \
+-Werror \
+-o main main.cpp \
+-I../SFML-2.5.1-sources/install/include \
+-L../SFML-2.5.1-sources/install/lib \
+-lsfml-system-s \
+-lsfml-network-s \
+-lsfml-graphics-s \
+-lsfml-window-s \
+-lsfml-audio-s \
+-Wl,-rpath ../SFML-2.5.1-sources/install/lib \
+;
+```
+
+`./main`
+
 
 # SFML Cmake Testing (build from source STATIC DEFAULT INSTALL DIRECTORY)
 
