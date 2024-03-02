@@ -8,6 +8,8 @@
 
 [SFML CMake Testing build from source static default install directory](#sfml-cmake-testing-build-from-source-static-default-install-directory)
 
+[SFML Cmake Testing Build from source / Static linking / Custom install directory](#sfml-cmake-testing-build-from-source--static-linking--custom-install-directory) Works ✅
+
 # SFML Cmake Testing
 
 `mkdir sfml-cmake-testing`
@@ -127,12 +129,12 @@ You should now find a file `sfml_cmake_testing` in the main directory, run it wi
 // }
 
 
-// #include <iostream>
+#include <iostream>
 
-// int main() {
-//     printf("Working");
-//     return 0;
-// }
+int main() {
+    printf("Working");
+    return 0;
+}
 ```
 
 Now, we will build SFML from source and link it statically
@@ -280,3 +282,106 @@ Your CMakeLists.txt in the `sfml-cmake-sources-testing` directory should look li
 ```m
 set(SFML_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../install")
 ```
+
+# SFML Cmake Testing Build from source / Static linking / Custom install directory
+
+`mkdir sfml-cmake-sources-static-testing`
+
+`cd sfml-cmake-sources-static-testing`
+
+`touch CMakeLists.txt`
+
+`touch main.cpp`
+
+`main.cpp` should have the folowing
+
+```cpp
+#include <SFML/Graphics.hpp>
+
+int main() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Example");
+
+    while (window.isOpen()) {
+        sf::Event event;
+        while (window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        window.display();
+    }
+
+    return 0;
+}
+
+// #include <iostream>
+
+// int main() {
+//     printf("Working");
+//     return 0;
+// }
+```
+
+Now, we will build SFML from source and link it statically. If SFML has already been built from source and linked statically, skip this step.
+
+`cd ../SFML-2.5.1-sources`
+
+`mkdir build`
+
+`cd build`
+
+
+try this option to build it in the install directory. 
+
+`cmake .. -DCMAKE_INSTALL_PREFIX=../install`
+
+This is a custom directory, if this causes issues, then try again with 
+
+`cmake ..`
+
+`make`
+
+`make install`
+
+If you get an error like the following
+
+```
+-- Installing: /Library/Frameworks/freetype.framework
+CMake Error at cmake_install.cmake:77 (file):
+  file INSTALL cannot make directory
+  "/Library/Frameworks/freetype.framework": Permission denied.
+```
+
+Then run `sudo make install`
+
+Return to the `sfml_cmake_testing` directory
+
+CMakeLists.txt in `sfml-cmake-sources-static-testing` should have the following
+
+```m
+cmake_minimum_required(VERSION 3.10)
+project(sfml_cmake_sources_static_testing)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(SFML_DIR "../SFML-2.5.1-sources/build")
+
+find_package(SFML 2.5.1 COMPONENTS graphics window audio network system REQUIRED)
+
+add_executable(sfml_cmake_sources_static_testing main.cpp)
+
+target_link_libraries(sfml_cmake_sources_static_testing PRIVATE sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
+```
+
+`mkdir build`
+
+`cd build`
+
+`cmake ..`
+
+`cmake --build .`
+
+You should now find a file `sfml_cmake_sources_static_testing` in the main directory, run it with `./sfml_cmake_sources_static_testing`
