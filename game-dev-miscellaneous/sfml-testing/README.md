@@ -1,5 +1,10 @@
 # Table of Contents
 
+[SFML CMake testing](#sfml-cmake-testing)
+[SFML Cmake testing build from source](#sfml-cmake-testing-build-from-source)
+[SFML CMake Testing build from source static custom install directory](#sfml-cmake-testing-build-from-source-static-custom-install-directory)
+[SFML CMake Testing build from source static default install directory](#sfml-cmake-testing-build-from-source-static-default-install-directory)
+
 # SFML Cmake Testing
 
 `mkdir sfml-cmake-testing`
@@ -135,11 +140,11 @@ Now, we will build SFML from source and link it statically
 `cd build`
 
 
-try this option to build it in the install directory
+try this option to build it in the install directory. 
 `cmake .. -DCMAKE_INSTALL_PREFIX=../install`
 
-try this option to build it statically
-`cmake .. -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE`
+This is a custom directory, if this causes issues, then try again with 
+`cmake ..`
 
 `make`
 
@@ -191,13 +196,12 @@ If you get errors similar to the following on macOS:
 
 Then for each error, open "Privacy and Security" in settings, click "Allow Anyway" to the popup, and then run the executable again.
 
-# SFML Cmake Testing (build from source STATIC)
+# SFML Cmake Testing (build from source STATIC CUSTOM INSTALL DIRECTORY)
 
 Do the same as build from source, except:
 
 Instead of running
 `cmake .. -DCMAKE_INSTALL_PREFIX=../install`
-
 
 Run
 `cmake .. -DCMAKE_INSTALL_PREFIX=../install -DBUILD_SHARED_LIBS=FALSE`
@@ -226,4 +230,24 @@ find_package(SFML 2.5.1 COMPONENTS graphics window audio network system REQUIRED
 add_executable(sfml_cmake_sources_testing main.cpp)
 
 target_link_libraries(sfml_cmake_sources_testing PRIVATE sfml-graphics sfml-window sfml-audio sfml-network sfml-system)
+```
+
+# SFML Cmake Testing (build from source STATIC DEFAULT INSTALL DIRECTORY)
+
+Do the same as build from source with custom install directory, except
+
+Instead of running (to build from source)
+`cmake ..  -DBUILD_SHARED_LIBS=FALSE`
+
+Run
+`cmake .. -DBUILD_SHARED_LIBS=FALSE`
+
+To link the libraries statically and not use any custom install directory
+
+Since using a custom install directory may lead to problems with SFML finding the install directory
+
+Your CMakeLists.txt in the `sfml-cmake-sources-testing` directory should look like this:
+
+```m
+set(SFML_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../install")
 ```
