@@ -467,3 +467,138 @@ Then run
 `CC=gcc-8 swift build`
 
 `CC=gcc-8 swift run`
+
+# C 
+
+`mkdir c-raylib-testing`
+
+`cd c-raylib-testing`
+
+`touch CMakeLists.txt`
+
+`touch main.c`
+
+`main.c` should have the folowing
+```c
+#include "raylib.h"
+
+int main(void) {
+
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "Raylib Example");
+
+    SetTargetFPS(60);
+
+
+    while (!WindowShouldClose()) {
+
+        BeginDrawing();
+
+        ClearBackground(RAYWHITE);
+
+        DrawText("Hello, Raylib!", 190, 200, 20, LIGHTGRAY);
+
+        EndDrawing();
+    }
+
+    CloseWindow();
+
+    return 0;
+}
+
+```
+
+CMakeLists.txt should have the following
+
+```m
+cmake_minimum_required(VERSION 3.10)
+project(raylib_example)
+
+set(CMAKE_C_STANDARD 11)
+
+find_package(raylib 4.5 REQUIRED PATHS /usr/local/Cellar/raylib/5.0)
+
+add_executable(raylib_example main.c)
+
+target_link_libraries(raylib_example PRIVATE raylib)
+```
+
+This is assuming raylib has been installed with homenbrew at location `/usr/local/Cellar/raylib/5.0`
+
+`mkdir build`
+
+`cd build`
+
+`cmake ..`
+
+`cmake --build .`
+
+You should now find a file `raylib-example` in the main directory, run it with `./raylib-example`
+
+# C++ 
+
+`mkdir cpp-raylib-testing`
+
+`cd cpp-raylib-testing`
+
+`touch CMakeLists.txt`
+
+`touch main.cpp`
+
+`main.cpp` should have the folowing
+```cpp
+#include "raylib.h"
+
+int main(void) {
+
+    const int screenWidth = 800;
+    const int screenHeight = 450;
+
+    InitWindow(screenWidth, screenHeight, "Raylib Example");
+
+    SetTargetFPS(60);
+
+
+    while (!WindowShouldClose()) {
+
+        BeginDrawing();
+
+        ClearBackground(RAYWHITE);
+
+        DrawText("Hello, Raylib!", 190, 200, 20, LIGHTGRAY);
+
+        EndDrawing();
+    }
+
+    CloseWindow();
+
+    return 0;
+}
+
+```
+CMakeLists.txt should have the following
+
+```m
+cmake_minimum_required(VERSION 3.10)
+project(raylib_example)
+
+set(CMAKE_CXX_STANDARD 11)
+
+find_package(raylib 3.7.0 REQUIRED)
+
+add_executable(raylib_example main.cpp)
+
+target_link_libraries(raylib_example PRIVATE raylib)
+```
+
+`mkdir build`
+
+`cd build`
+
+`cmake ..`
+
+`cmake --build .`
+
+You should now find a file `raylib-example` in the main directory, run it with `./raylib-example`
