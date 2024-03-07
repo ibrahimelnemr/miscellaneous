@@ -1,0 +1,18 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.16.3)
+    raylib-bindings (0.7.1)
+      ffi (~> 1.16)
+    raylib-bindings (0.7.1-x86_64-darwin)
+      ffi (~> 1.16)
+
+PLATFORMS
+  ruby
+  x86_64-darwin-23
+
+DEPENDENCIES
+  raylib-bindings
+
+BUNDLED WITH
+   2.5.6
